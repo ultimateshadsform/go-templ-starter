@@ -1,0 +1,33 @@
+{
+  "name": "gotesting",
+  "module": "index.ts",
+  "devDependencies": {
+    "@types/alpinejs": "^3.13.10",
+    "@types/bun": "latest",
+    "autoprefixer": "^10.4.19",
+    "concurrently": "^8.2.2",
+    "postcss": "^8.4.38",
+    "tailwindcss": "^3.4.3"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "scripts": {
+    "dev": "concurrently -n ts,scss,templ,go -c blue,green,yellow,cyan \"bun run ts:watch\" \"bun run scss:watch\" \"bun run templ:watch\" \"bun run go:watch\"",
+    "build": "bun run ts:build && bun run scss:build && bun run templ:build && bun run go:build",
+    "ts:build": "bun build ts/src/**/*.ts --outdir static/js",
+    "ts:build-minify": "bundle build ts/src/**/*.ts --outdir static/js --minify",
+    "ts:watch": "bun run ts:build --watch",
+    "scss:watch": "tailwind -i ./scss/main.scss -o ./static/css/style.css --watch",
+    "scss:build": "tailwind -i ./scss/main.scss -o ./static/css/style.css --minify",
+    "go:build": "go build -ldflags \"-s -w\" -o bin/app",
+    "go:watch": "air",
+    "templ:build": "templ generate",
+    "templ:watch": "templ generate --watch"
+  },
+  "type": "module",
+  "dependencies": {
+    "alpinejs": "^3.13.8",
+    "htmx.org": "^1.9.11"
+  }
+}
