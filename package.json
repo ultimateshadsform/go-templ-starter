@@ -16,11 +16,11 @@
     "dev": "concurrently -n ts,scss,templ,go -c blue,green,yellow,cyan \"bun run ts:watch\" \"bun run scss:watch\" \"bun run templ:watch\" \"bun run go:watch\"",
     "build": "bun run ts:build && bun run scss:build && bun run templ:build && bun run go:build",
     "ts:build": "bun build ts/src/**/*.ts --outdir static/js",
-    "ts:build-minify": "bundle build ts/src/**/*.ts --outdir static/js --minify",
+    "ts:build-minify": "bun build ts/src/**/*.ts --outdir static/js --minify",
     "ts:watch": "bun run ts:build --watch",
     "scss:watch": "tailwind -i ./scss/main.scss -o ./static/css/style.css --watch",
     "scss:build": "tailwind -i ./scss/main.scss -o ./static/css/style.css --minify",
-    "go:build": "go build -ldflags \"-s -w\" -o bin/app",
+    "go:build": "go build -ldflags '-s -w' -o dist/app.exe ./cmd",
     "go:watch": "air",
     "templ:build": "templ generate",
     "templ:watch": "templ generate --watch"
